@@ -69,24 +69,24 @@
 
       <!-- 服务器IP -->
       <div class="mt-16 text-center">
-        <div class="inline-block p-6 bg-primary/20 rounded-lg border border-primary/30">
-          <h3 class="text-2xl font-bold mb-4">服务器IP</h3>
-          <div class="flex items-center justify-center">
+        <div class="inline-block p-4 sm:p-6 bg-primary/20 rounded-lg border border-primary/30 w-full max-w-md mx-auto">
+          <h3 class="text-xl sm:text-2xl font-bold mb-4">服务器IP</h3>
+          <div class="flex items-stretch justify-center">
             <input 
               type="text" 
               :value="serverIP" 
               readonly 
               ref="ipInput"
-              class="bg-gray-100 border border-gray-200 text-dark rounded-l-lg px-4 py-3 w-64 text-center focus:outline-none text-xl font-minecraft font-bold"
+              class="bg-gray-100 border border-gray-200 text-dark rounded-l-lg px-3 sm:px-4 py-2 sm:py-3 flex-1 min-w-0 text-center focus:outline-none text-base sm:text-xl font-minecraft font-bold"
             >
             <button 
               @click="copyIP" 
-              class="bg-secondary hover:bg-secondary/80 text-white px-4 py-3 rounded-r-lg transition-colors duration-300"
+              class="bg-secondary hover:bg-secondary/80 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-r-lg transition-colors duration-300 whitespace-nowrap text-sm sm:text-base flex-shrink-0"
             >
-              <i class="fa fa-copy mr-2"></i> {{ copied ? '已复制' : '复制' }}
+              <i class="fa fa-copy sm:mr-2"></i><span class="hidden sm:inline"> {{ copied ? '已复制' : '复制' }}</span>
             </button>
           </div>
-          <p class="mt-2 text-sm">点击按钮复制IP，或直接手动输入</p>
+          <p class="mt-2 text-xs sm:text-sm">点击按钮复制IP，或直接手动输入</p>
         </div>
       </div>
     </div>
