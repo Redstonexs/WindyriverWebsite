@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风河 · WindyRiver</title>
+    <meta name="description" content="风河 · WindyRiver我的世界 大型综合性服务器，支持1.8-1.21全版本正盗版登录，包含生存、职业战争、游艺街等丰富玩法，高性能物理服务器低延迟，5000字新手指引保驾护航，QQ群：946254761">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3498db',
+                        secondary: '#2ecc71',
+                        accent: '#e74c3c',
+                        dark: {
+                            DEFAULT: '#1a202c',
+                            darker: '#111827',
+                        },
+                        light: {
+                            DEFAULT: '#f8fafc',
+                            darker: '#e2e8f0',
+                        },
+                        minecraft: {
+                            dirt: '#8B4513',
+                            grass: '#228B22',
+                            stone: '#708090',
+                            wood: '#A0522D',
+                            wool: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        minecraft: ['Minecraft', 'Arial', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .text-shadow-lg {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            }
+            .bg-blur {
+                backdrop-filter: blur(8px);
+            }
+            .minecraft-btn {
+                @apply relative px-6 py-3 font-bold text-white bg-primary hover:bg-primary/80 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 border-2 border-white/30;
+            }
+            .minecraft-btn::before {
+                content: "";
+                @apply absolute inset-0 bg-white/10 pointer-events-none;
+            }
+            .minecraft-card {
+                @apply backdrop-blur-md rounded-lg p-6 border shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1;
+            }
+            .section-title {
+                @apply text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-shadow-lg mb-6;
+            }
+            .hero-bg {
+                background-image: url('images/bg-header.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://fonts.gstatic.com/s/minecraftia/v12/3xT98fZJJMhEn18OzQ_7z5Tm2gP2410k.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .minecraft-card {
+            @apply bg-white/80 border-gray-200;
+        }
+
+        .section-title {
+            @apply text-dark;
+        }
+
+        .text-light {
+            @apply text-gray-700;
+        }
+
+        .bg-dark {
+            @apply bg-light;
+        }
+
+        .bg-darker {
+            @apply bg-light-darker;
+        }
+
+        .bg-primary\/20 {
+            @apply bg-primary/10;
+        }
+
+        .bg-secondary\/20 {
+            @apply bg-secondary/10;
+        }
+
+        .bg-accent\/20 {
+            @apply bg-accent/10;
+        }
+
+        .border-white\/10 {
+            @apply border-gray-200;
+        }
+
+        .text-white {
+            @apply text-dark;
+        }
+
+        .minecraft-btn {
+            @apply shadow-md hover:shadow-lg;
+        }
+
+        footer {
+            @apply border-gray-200;
+        }
+
+        .bg-gradient-to-b.from-primary\/20.to-darker\/80 {
+            @apply from-primary/10 to-light-darker/60;
+        }
+
+        .bg-white\/5 {
+            @apply bg-gray-100;
+        }
+
+        code {
+            @apply bg-gray-200;
+        }
+
+        #server-ip {
+            @apply bg-gray-100 border-gray-200 text-dark;
+        }
+
+        .hover:text-secondary {
+            @apply hover:text-secondary;
+        }
+    </style>
+</head>
+<body class="bg-light text-gray-800 font-sans transition-colors duration-300">
+  <nav class="fixed top-0 w-full z-50 p-4 shadow-md transition-all duration-300 bg-light/90 backdrop-blur-md">
+  <div class="container mx-auto flex items-center justify-between"> <!-- 恢复 justify-between -->
+    <a href="#" class="text-xl font-minecraft flex items-center">
+      <img src="images/favicon.ico" alt="Logo" class="h-8 w-auto mr-2">
+      <span class="text-dark">风河 · WindyRiver</span>
+    </a>
+    <div class="md:flex items-center ml-auto space-x-6"> <!-- 添加 ml-auto 替代 justify-end -->
+      <a href="#features" class="hover:text-secondary transition-colors duration-300">玩法介绍</a>
+      <a href="#about" class="hover:text-secondary transition-colors duration-300">服务器优势</a>
+      <a href="#rules" class="hover:text-secondary transition-colors duration-300">服规与指引</a>
+      <a href="#join" class="hover:text-secondary transition-colors duration-300">如何加入</a>
+      <a href="#contact" class="hover:text-secondary transition-colors duration-300">联系我们</a>
+      <a href="https://status.windyriver.top" class="hover:text-secondary transition-colors duration-300">状态监测</a>
+      <a href="https://forum.windyriver.top" class="hover:text-secondary transition-colors duration-300">论坛</a>
+      <a href="https://qm.qq.com/q/sFxtDUBht0" class="hover:text-secondary transition-colors duration-300">加入我们</a>
+    </div>
+    <div class="flex items-center">
+      <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+        <i class="fa fa-bars text-2xl"></i>
+      </button>
+    </div>
+  </div>
+        <div class="md:hidden hidden absolute top-full left-0 w-full p-4 transition-all duration-300 bg-light/95" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#features" class="hover:text-secondary transition-colors duration-300">玩法介绍</a>
+                <a href="#about" class="hover:text-secondary transition-colors duration-300">服务器优势</a>
+                <a href="#rules" class="hover:text-secondary transition-colors duration-300">服规与指引</a>
+                <a href="#join" class="hover:text-secondary transition-colors duration-300">如何加入</a>
+                <a href="#contact" class="hover:text-secondary transition-colors duration-300">联系我们</a>
+				<a href="https://status.windyriver.top" class="hover:text-secondary transition-colors duration-300">状态监测</a>
+      <a href="https://forum.windyriver.top" class="hover:text-secondary transition-colors duration-300">论坛</a>
+      <a href="https://qm.qq.com/q/sFxtDUBht0" class="hover:text-secondary transition-colors duration-300">加入我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 hero-bg"></div>
+        <div class="absolute inset-0 bg-black/30"></div>
+        
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-minecraft text-white text-shadow-lg mb-6 animate-float">
+                风河 · WindyRiver<br>
+                <span class="text-[clamp(1rem,2vw,1.5rem)] font-sans block mt-4 text-secondary">我的世界大型综合性服务器</span>
+            </h1>
+            <p class="text-[clamp(1rem,2vw,1.25rem)] mb-8 max-w-2xl mx-auto text-white/80">
+                支持 <span class="text-secondary font-bold">1.13-1.21.4</span> 客户端加入<br>
+                i9-14900K · DDR5 64G内存 · 物理机
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#join" class="minecraft-btn flex items-center justify-center">
+                    <i class="fa fa-server mr-2"></i> 立即加入服务器<br>
+                </a>
+                <a href="https://qm.qq.com/q/sFxtDUBht0" class="minecraft-btn bg-secondary hover:bg-secondary/80 flex items-center justify-center">
+                    <i class="fab fa-qq mr-2"></i> 加入QQ群<br>
+                </a>
+            </div>
+            <div class="mt-12 flex justify-center space-x-6">
+                <div class="minecraft-card bg-primary/30 p-4 w-48">
+                    <div class="text-2xl mb-2"><i class="fa fa-users text-secondary"></i></div>
+                    <div class="text-xl font-bold" id="player-count">0</div>
+                    <div class="text-sm">在线玩家</div>
+                </div>
+                <div class="minecraft-card bg-primary/30 p-4 w-48">
+                    <div class="text-2xl mb-2"><i class="fa fa-clock text-secondary"></i></div>
+                    <div class="text-xl font-bold">24/7</div>
+                    <div class="text-sm">全天候运行</div>
+                </div>
+                <div class="minecraft-card bg-primary/30 p-4 w-48">
+                    <div class="text-2xl mb-2"><i class="fa fa-download text-secondary"></i></div>
+                    <div class="text-xl font-bold">5000+</div>
+                    <div class="text-sm">玩家下载</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">部分玩法</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <div class="minecraft-card group">
+                    <div class="h-48 overflow-hidden rounded-lg mb-4">
+                        <img src="https://picsum.photos/id/155/800/600" alt="生存玩法" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-tree text-secondary mr-2"></i> 粘液生存 or 纯净生存
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>两个生存服，爱玩哪个玩哪个</li>
+                        <li>粘液生存：粘液科技，永不删档，多种扩展，领地保护，随时传送</li>
+                        <li>纯净生存：原汁原味，定期换周目，无领地与传送，紧张刺激</li>
+                        <li>纯净生存采用Luminol多线程优化服务器核心，为生电机器保驾护航</li>
+                        <li>纯净生存</li>
+                    </ul>
+                </div>
+
+        <div class="minecraft-card group">
+            <div class="h-48 overflow-hidden rounded-lg mb-4">
+                <img src="https://picsum.photos/id/250/800/600" alt="无尽地城" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <h3 class="text-xl font-bold mb-4 flex items-center">
+                <i class="fa fa-dungeon text-secondary mr-2"></i> 无尽地城
+            </h3>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>一个无尽肉鸽游戏，玩法紧张刺激</li>
+                <li>支持单人或组队冒险，通力合作，挑战强敌</li>
+                <li>特色打怪生存机制，难度层层递进</li>
+                <li>通关层数最高者将被光荣展示于登录大厅与无尽地城大厅</li>
+                <li>每次进入皆为重置，体验真正的“运气与策略并重”</li>
+            </ul>
+        </div>
+
+                <div class="minecraft-card group">
+                    <div class="h-48 overflow-hidden rounded-lg mb-4">
+                        <img src="https://picsum.photos/id/110/800/600" alt="游艺街" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-gamepad text-secondary mr-2"></i> 游艺街
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>PCL作者龙猫制作的小游戏合集</li>
+                        <li>包含跑酷、闯关、竞技等多种类型游戏</li>
+                        <li>和好友实时竞技，争夺排行榜荣耀</li>
+                        <li>定期更新小游戏，保持新鲜感</li>
+                        <li>轻松休闲，适合各种玩家</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="about" class="py-20 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="section-title text-center">服务器优势</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
+                <div class="minecraft-card">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fa fa-microchip text-secondary mr-2"></i> 💪 硬核硬件配置
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-server"></i></div>
+                            <div>
+                                <h4 class="font-bold">Intel i9-14900K 处理器</h4>
+                                <p>16核24线程，专为高性能服务器优化</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-memory"></i></div>
+                            <div>
+                                <h4 class="font-bold">64GB DDR5高频内存</h4>
+                                <p>确保多玩家同时在线时流畅运行</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-hdd"></i></div>
+                            <div>
+                                <h4 class="font-bold">1TB NVMe SSD</h4>
+                                <p>读写速度高达7000MB/s，确保区块加载迅速</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-wifi"></i></div>
+                            <div>
+                                <h4 class="font-bold">中国移动骨干网专线</h4>
+                                <p>专用网络通道，低延迟，高稳定性，拒绝卡顿</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-shield-alt"></i></div>
+                            <div>
+                                <h4 class="font-bold">DDoS防御已部署</h4>
+                                <p>令人失望的</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="minecraft-card">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fa fa-users text-secondary mr-2"></i> ❤️ 温暖社区生态
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-book"></i></div>
+                            <div>
+                                <h4 class="font-bold">上万字超详细服规及指引</h4>
+                                <p>从基础操作到高级玩法，一步一步带你熟悉服务器</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-shield-alt"></i></div>
+                            <div>
+                                <h4 class="font-bold">活跃管理团队高强度在线</h4>
+                                <p>公平公正处理玩家问题，维护良好游戏环境</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-calendar"></i></div>
+                            <div>
+                                <h4 class="font-bold">定期举办玩家活动</h4>
+                                <p>节日庆典、隐藏玩法、建筑比赛等，等你来玩</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-comments"></i></div>
+                            <div>
+                                <h4 class="font-bold">友好互助的玩家社区</h4>
+                                <p>老玩家热情指导新手</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-xl mr-3 mt-1"><i class="fa fa-code-fork"></i></div>
+                            <div>
+                                <h4 class="font-bold">听劝的管理层</h4>
+                                <p>根据玩家反馈不断优化游戏体验</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <h3 class="text-xl font-bold mb-8">服务器数据</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="minecraft-card bg-primary/20">
+                        <div>始于</div>
+                        <div class="text-4xl font-bold mb-2">2022</div>
+                    </div>
+                    <div class="minecraft-card bg-secondary/20">
+                        <div>子服数量</div>
+                        <div class="text-4xl font-bold mb-2">9+</div>
+                    </div>
+                    <div class="minecraft-card bg-accent/20">
+                        <div>稳定性保障</div>
+                        <div class="text-4xl font-bold mb-2">99.9%</div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" class="py-20 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="section-title text-center">如何加入服务器</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
+                <div class="minecraft-card">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-download text-secondary mr-2"></i> 客户端准备
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="text-secondary text-2xl mr-4 mt-1">1</div>
+                            <div>
+                                <h4 class="font-bold">下载游戏客户端</h4>
+                                <p>
+                                    推荐使用 <a href="https://www.pcl2.cn/" class="text-secondary hover:underline">PCL2</a>。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-2xl mr-4 mt-1">2</div>
+                            <div>
+                                <h4 class="font-bold">安装对应游戏版本</h4>
+                                <p>
+                                    服务器支持 1.13-1.21.4 版本，建议使用最新版。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-2xl mr-4 mt-1">3</div>
+                            <div>
+                                <h4 class="font-bold">正版与盗版融合登录</h4>
+                                <p>
+                                    - 正版用户：直接使用Mojang账号登录。<br>
+                                    - 盗版用户：使用离线登录功能，输入任意用户名即可。<br>
+                                    - <strong>注意：在风河，正版玩家享有改名保留数据的权益。</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="minecraft-card">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-server text-secondary mr-2"></i> 服务器连接
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="text-secondary text-2xl mr-4 mt-1">1</div>
+                            <div>
+                                <h4 class="font-bold">打开多人游戏</h4>
+                                <p>
+                                    在游戏主界面点击"多人游戏"，然后点击"添加服务器"。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-2xl mr-4 mt-1">2</div>
+                            <div>
+                                <h4 class="font-bold">输入服务器信息</h4>
+                                <p>
+                                    - 服务器名称：风河 · WindyRiver<br>
+                                    - 服务器地址：<code class="bg-white/10 px-2 py-1 rounded">mc.windyriver.top</code><br>
+                                    然后点击"完成"保存。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-secondary text-2xl mr-4 mt-1">3</div>
+                            <div>
+                                <h4 class="font-bold">连接服务器</h4>
+                                <p>
+                                    选择刚添加的服务器，点击"加入服务器"即可。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <div class="inline-block p-6 bg-primary/20 rounded-lg border border-primary/30">
+                    <h3 class="text-2xl font-bold mb-4">服务器IP</h3>
+                    <div class="flex items-center justify-center">
+                        <input type="text" value="mc.windyriver.top" id="server-ip" readonly class="bg-white/10 border border-white/20 rounded-l-lg px-4 py-3 w-64 text-center focus:outline-none">
+                        <button onclick="copyIP()" class="bg-secondary hover:bg-secondary/80 text-white px-4 py-3 rounded-r-lg transition-colors duration-300">
+                            <i class="fa fa-copy mr-2"></i> 复制
+                        </button>
+                    </div>
+                    <p class="mt-2 text-sm">点击按钮复制IP，或直接手动输入</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16"> <!-- 减小section上下间距 -->
+  <div class="container mx-auto px-4">
+    <h2 class="section-title text-center mb-8">联系我们</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"> <!-- 减小列间距 -->
+      
+      <!-- QQ群卡片（水平排列版） -->
+      <div class="minecraft-card flex items-center justify-between p-3 bg-white/90 shadow-sm">
+        <div class="flex items-center">
+          <div class="text-3xl text-secondary mr-3">
+            <i class="fab fa-qq"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold">QQ群</h3>
+            <p class="text-xs text-light">加入获取最新资讯</p>
+          </div>
+        </div>
+        <a href="https://jq.qq.com/?_wv=1027&k=5d7F5aB" 
+           class="minecraft-btn bg-secondary hover:bg-secondary/80 px-3 py-1.5 text-xs whitespace-nowrap">
+          <i class="fab fa-qq mr-1"></i> 立即加入
+        </a>
+      </div>
+
+      <!-- 哔哩哔哩卡片（水平排列版） -->
+      <div class="minecraft-card flex items-center justify-between p-3 bg-white/90 shadow-sm">
+        <div class="flex items-center">
+          <div class="text-3xl text-secondary mr-3">
+            <i class="fab fa-bilibili"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold">哔哩哔哩</h3>
+            <p class="text-xs text-light">关注获取精彩视频</p>
+          </div>
+        </div>
+        <a href="https://space.bilibili.com/你的B站ID" 
+           class="minecraft-btn bg-secondary hover:bg-secondary/80 px-3 py-1.5 text-xs whitespace-nowrap">
+          <i class="fab fa-bilibili mr-1"></i> 关注B站
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <footer class="bg-light py-12 border-t border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-minecraft mb-4">风河 · WindyRiver</h3>
+                    <p class="mb-4">我的世界大型综合性服务器</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-dark hover:text-secondary transition-colors duration-300">
+                            <i class="fab fa-qq"></i>
+                        </a>
+                        <a href="#" class="text-dark hover:text-secondary transition-colors duration-300">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="text-dark hover:text-secondary transition-colors duration-300">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="hover:text-secondary transition-colors duration-300">玩法介绍</a></li>
+                        <li><a href="#about" class="hover:text-secondary transition-colors duration-300">服务器优势</a></li>
+                        <li><a href="#rules" class="hover:text-secondary transition-colors duration-300">服规与指引</a></li>
+                        <li><a href="#join" class="hover:text-secondary transition-colors duration-300">如何加入</a></li>
+                        <li><a href="#contact" class="hover:text-secondary transition-colors duration-300">联系我们</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4">支持</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">常见问题</a></li>
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">新手指南</a></li>
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">插件列表</a></li>
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">捐赠支持</a></li>
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">管理团队</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4">法律</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">服务条款</a></li>
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">隐私政策</a></li>
+                        <li><a href="#" class="hover:text-secondary transition-colors duration-300">版权声明</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-gray-200 text-center">
+                <p>© 2022-2025 风河 All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('shadow-lg', window.scrollY > 100);
+        });
+        
+        function copyIP() {
+            const ipInput = document.getElementById('server-ip');
+            ipInput.select();
+            document.execCommand('copy');
+            
+            const copyButton = document.querySelector('#join button');
+            copyButton.textContent = '已复制';
+            
+            setTimeout(() => {
+                copyButton.textContent = '复制';
+            }, 2000);
+        }
+        
+        function updatePlayerCount() {
+            const playerCount = document.getElementById('player-count');
+            playerCount.textContent = Math.floor(Math.random() * 80) + 20;
+            setTimeout(updatePlayerCount, 30000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePlayerCount();
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>
