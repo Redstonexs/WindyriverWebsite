@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/MinecraftRegular-Bmg3.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  src: url('/fonts/HarmonyOS_Sans_SC_Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+  
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+  }
+  
+  .bg-blur {
+    backdrop-filter: blur(8px);
+  }
+}
+
+@layer components {
+  .minecraft-btn {
+    @apply relative px-6 py-3 font-bold text-white bg-primary hover:bg-primary/80 
+           transition-all duration-300 shadow-lg hover:shadow-xl 
+           transform hover:-translate-y-1 border-2 border-white/30 rounded-md;
+  }
+  
+  .minecraft-btn::before {
+    content: "";
+    @apply absolute inset-0 bg-white/10 pointer-events-none;
+  }
+  
+  .minecraft-card {
+    @apply backdrop-blur-md rounded-lg p-6 border shadow-xl 
+           hover:shadow-2xl transition-all duration-300 hover:-translate-y-1
+           bg-white/80 border-gray-200;
+  }
+  
+  .section-title {
+    @apply text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-shadow-lg mb-6 text-dark;
+  }
+}
+
+/* 全局滚动条样式优化 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3498db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2980b9;
+}
+
+/* 页面过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
