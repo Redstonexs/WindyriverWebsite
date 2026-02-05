@@ -18,14 +18,8 @@ export default defineConfig({
         }
       }
     },
-    // 压缩配置
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    },
+    // 使用 esbuild 压缩 (Vite 默认，无需额外依赖)
+    minify: 'esbuild',
     // 资源内联阈值
     assetsInlineLimit: 4096
   },
